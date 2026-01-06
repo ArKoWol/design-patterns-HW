@@ -1,6 +1,6 @@
-import { Order } from '../entities/Order';
-import { OrderState } from './OrderState';
-import { DeliveredOrderState } from './DeliveredOrderState';
+import { Order } from '../entities/Order.js';
+import { OrderState } from './OrderState.js';
+import { DeliveredOrderState } from './DeliveredOrderState.js';
 
 export class ShippedOrderState implements OrderState {
   public process(order: Order): void {

@@ -1,34 +1,38 @@
 import { ShippingService } from '../../../src/orders/services/ShippingService';
-import { Order, OrderItem } from '../../../src/orders/entities/Order';
+import { Order } from '../../../src/orders/entities/Order';
+import { OrderItem } from '../../../src/orders/components/OrderItem';
+import { StandardProcessingStrategy } from '../../../src/orders/strategies/StandardProcessingStrategy';
 
 describe('ShippingService', () => {
   let shippingService: ShippingService;
   let order: Order;
 
-  const sampleItems: OrderItem[] = [
-    { productId: 'PROD001', productName: 'Laptop', quantity: 1, price: 999.99 },
-    { productId: 'PROD002', productName: 'Mouse', quantity: 2, price: 29.99 }
-  ];
-
   beforeEach(() => {
     shippingService = new ShippingService();
-    order = new Order('ORD-001', 'CUST-001', sampleItems, 1059.97);
+    const components = [
+      new OrderItem('PROD001', 'Laptop', 999.99, 1),
+      new OrderItem('PROD002', 'Mouse', 29.99, 2)
+    ];
+    const strategy = new StandardProcessingStrategy();
+    order = new Order('ORD-001', 'CUST-001', components, strategy);
   });
 
   describe('calculateShippingCost', () => {
-    it('should calculate shipping cost based on item count', () => {
+    it('should calculate shipping cost using strategy', () => {
       const cost = shippingService.calculateShippingCost(order);
       
-      // Base cost $5.99 + (3 items * $1.50) = $10.49
-      expect(cost).toBe(10.49);
+      // Total is over $100, so free shipping with standard strategy
+      expect(cost).toBe(0);
     });
 
-    it('should calculate correct cost for single item', () => {
-      const singleItemOrder = new Order('ORD-002', 'CUST-001', [sampleItems[0]], 999.99);
+    it('should calculate correct cost for single low-value item', () => {
+      const components = [new OrderItem('PROD001', 'Item', 50.00, 1)];
+      const strategy = new StandardProcessingStrategy();
+      const singleItemOrder = new Order('ORD-002', 'CUST-001', components, strategy);
       const cost = shippingService.calculateShippingCost(singleItemOrder);
       
-      // Base cost $5.99 + (1 item * $1.50) = $7.49
-      expect(cost).toBe(7.49);
+      // Under $100, so standard $5.99 shipping
+      expect(cost).toBe(5.99);
     });
   });
 
@@ -43,7 +47,9 @@ describe('ShippingService', () => {
     it('should generate unique tracking numbers', () => {
       const tracking1 = shippingService.scheduleShipment(order);
       
-      const order2 = new Order('ORD-002', 'CUST-002', sampleItems, 1059.97);
+      const components2 = [new OrderItem('PROD003', 'Item', 100.00, 1)];
+      const strategy2 = new StandardProcessingStrategy();
+      const order2 = new Order('ORD-002', 'CUST-002', components2, strategy2);
       const tracking2 = shippingService.scheduleShipment(order2);
       
       expect(tracking1).not.toBe(tracking2);
@@ -62,7 +68,7 @@ describe('ShippingService', () => {
 
   describe('estimateDeliveryDate', () => {
     it('should estimate delivery date 3 days from now', () => {
-      const estimatedDate = shippingService.estimateDeliveryDate(order);
+      const estimatedDate = shippingService.estimateDeliveryDate();
       const today = new Date();
       const expectedDate = new Date();
       expectedDate.setDate(today.getDate() + 3);

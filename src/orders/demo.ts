@@ -1,5 +1,5 @@
-import { OrderFacade } from './facade/OrderFacade';
-import { OrderItem } from './entities/Order';
+import { OrderFacade } from './facade/OrderFacade.js';
+import { OrderItem } from './entities/Order.js';
 
 export function demoCompleteOrderLifecycle(): void {
   console.log('\n╔════════════════════════════════════════════════════════════╗');

@@ -1,4 +1,4 @@
-import { OrderItem } from '../entities/Order';
+import { OrderItem } from '../entities/Order.js';
 
 export class InventoryService {
   private inventory: Map<string, number>;

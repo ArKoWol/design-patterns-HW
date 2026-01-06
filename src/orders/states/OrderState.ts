@@ -1,4 +1,4 @@
-import type { Order } from '../entities/Order';
+import type { Order } from '../entities/Order.js';
 
 export interface OrderState {
   process(order: Order): void;
