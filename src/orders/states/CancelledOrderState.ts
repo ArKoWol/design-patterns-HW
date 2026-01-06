@@ -1,5 +1,5 @@
-import { Order } from '../entities/Order';
-import { OrderState } from './OrderState';
+import { Order } from '../entities/Order.js';
+import { OrderState } from './OrderState.js';
 
 export class CancelledOrderState implements OrderState {
   public process(_order: Order): void {

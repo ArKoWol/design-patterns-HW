@@ -1,4 +1,4 @@
-import { Order } from '../entities/Order';
+import { Order } from '../entities/Order.js';
 
 export class NotificationService {
   public sendOrderConfirmation(order: Order): void {
