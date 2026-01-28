@@ -1,8 +1,11 @@
-import { Order, OrderItem } from '../entities/Order.js';
+import { OrderItem } from '../components/OrderItem.js';
+import { Order, OrderItem as OrderItemType } from '../entities/Order.js';
+import { StandardOrderFactory } from '../factories/StandardOrderFactory.js';
 import { PaymentService } from '../services/PaymentService.js';
 import { InventoryService } from '../services/InventoryService.js';
 import { ShippingService } from '../services/ShippingService.js';
 import { NotificationService } from '../services/NotificationService.js';
+import { StandardProcessingStrategy } from '../strategies/StandardProcessingStrategy.js';
 
 export class OrderFacade {
   private orders: Map<string, Order>;
@@ -36,7 +39,7 @@ export class OrderFacade {
     return `ORD-${this.orderIdCounter.toString().padStart(6, '0')}`;
   }
 
-  public placeOrder(customerId: string, items: OrderItem[]): Order | null {
+  public placeOrder(customerId: string, items: OrderItemType[]): Order | null {
     console.log('\n=== PLACING NEW ORDER ===');
 
     if (!items || items.length === 0) {
@@ -70,7 +73,7 @@ export class OrderFacade {
     const orderId = this.generateOrderId();
     
     const components = items.map(item => 
-      new OrderItemComponent(item.productId, item.productName, item.price, item.quantity)
+      new OrderItem(item.productId, item.productName, item.price, item.quantity)
     );
     
     const factory = new StandardOrderFactory();
@@ -166,11 +169,11 @@ export class OrderFacade {
       order.cancel();
 
       if (previousStatus === 'NEW' || previousStatus === 'PROCESSING') {
-        const items: OrderItem[] = [];
+        const items: OrderItemType[] = [];
         order.getComponents().forEach(component => {
           if (!component.isComposite()) {
             items.push({
-              productId: (component as OrderItemComponent).getProductId(),
+              productId: (component as OrderItem).getProductId(),
               productName: component.getName(),
               quantity: component.getQuantity(),
               price: component.getPrice(),
