@@ -1,8 +1,8 @@
-import { Order, OrderItem } from '../entities/Order';
-import { PaymentService } from '../services/PaymentService';
-import { InventoryService } from '../services/InventoryService';
-import { ShippingService } from '../services/ShippingService';
-import { NotificationService } from '../services/NotificationService';
+import { Order, OrderItem } from '../entities/Order.js';
+import { PaymentService } from '../services/PaymentService.js';
+import { InventoryService } from '../services/InventoryService.js';
+import { ShippingService } from '../services/ShippingService.js';
+import { NotificationService } from '../services/NotificationService.js';
 
 export class OrderFacade {
   private orders: Map<string, Order>;

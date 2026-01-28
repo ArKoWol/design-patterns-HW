@@ -1,6 +1,6 @@
-import { OrderState } from '../states/OrderState';
+import { OrderState } from '../states/OrderState.js';
 // eslint-disable-next-line import/no-cycle
-import { NewOrderState } from '../states/NewOrderState';
+import { NewOrderState } from '../states/NewOrderState.js';
 
 export class Order {
   private state: OrderState;

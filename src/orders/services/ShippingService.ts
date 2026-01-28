@@ -1,4 +1,4 @@
-import { Order } from '../entities/Order';
+import { Order } from '../entities/Order.js';
 
 export class ShippingService {
   private trackingCounter: number;
