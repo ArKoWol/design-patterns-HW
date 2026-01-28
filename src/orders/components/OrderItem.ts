@@ -1,9 +1,5 @@
 import { OrderComponent } from './OrderComponent.js';
 
-/**
- * Composite Pattern - Leaf
- * Represents a single product item in an order
- */
 export class OrderItem implements OrderComponent {
   private readonly productId: string;
 

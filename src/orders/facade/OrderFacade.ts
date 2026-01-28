@@ -72,12 +72,10 @@ export class OrderFacade {
 
     const orderId = this.generateOrderId();
     
-    // Convert OrderItem[] to OrderComponent[]
     const components = items.map(item => 
       new OrderItemComponent(item.productId, item.productName, item.price, item.quantity)
     );
     
-    // Use factory to create order with standard processing strategy
     const factory = new StandardOrderFactory();
     const strategy = new StandardProcessingStrategy();
     const order = factory.createOrder(orderId, customerId, components, strategy);
@@ -171,7 +169,6 @@ export class OrderFacade {
       order.cancel();
 
       if (previousStatus === 'NEW' || previousStatus === 'PROCESSING') {
-        // Convert components back to OrderItem[] for inventory service
         const items: OrderItem[] = [];
         order.getComponents().forEach(component => {
           if (!component.isComposite()) {

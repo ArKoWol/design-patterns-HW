@@ -1,9 +1,5 @@
 import { OrderComponent } from './OrderComponent.js';
 
-/**
- * Composite Pattern - Composite
- * Represents a bundle/package containing multiple order components
- */
 export class OrderBundle implements OrderComponent {
   private readonly name: string;
 

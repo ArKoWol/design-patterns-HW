@@ -1,10 +1,6 @@
 import { OrderProcessingStrategy } from './OrderProcessingStrategy.js';
 import { OrderComponent } from '../components/OrderComponent.js';
 
-/**
- * Strategy Pattern - Concrete Strategy
- * Standard processing with regular shipping
- */
 export class StandardProcessingStrategy implements OrderProcessingStrategy {
   public getStrategyName(): string {
     return 'Standard Processing';
@@ -13,21 +9,19 @@ export class StandardProcessingStrategy implements OrderProcessingStrategy {
   public calculateShippingCost(components: OrderComponent[]): number {
     const totalPrice = components.reduce((sum, component) => sum + component.getTotalPrice(), 0);
     
-    // Free shipping for orders over $100
     if (totalPrice > 100) {
       return 0;
     }
     
-    // $5.99 flat rate for standard shipping
     return 5.99;
   }
 
   public getEstimatedDeliveryDays(): number {
-    return 5; // 5-7 business days
+    return 5;
   }
 
   public getProcessingFee(): number {
-    return 0; // No processing fee for standard
+    return 0;
   }
 
   public canProcess(components: OrderComponent[]): boolean {

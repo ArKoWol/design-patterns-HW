@@ -4,10 +4,6 @@ import { OrderComponent } from '../components/OrderComponent.js';
 import { OrderProcessingStrategy } from '../strategies/OrderProcessingStrategy.js';
 import { ExpressProcessingStrategy } from '../strategies/ExpressProcessingStrategy.js';
 
-/**
- * Factory Method Pattern - Concrete Creator
- * Creates express orders with priority handling
- */
 export class ExpressOrderFactory extends OrderFactory {
   protected createOrderInstance(
     id: string,
@@ -15,14 +11,12 @@ export class ExpressOrderFactory extends OrderFactory {
     components: OrderComponent[],
     strategy: OrderProcessingStrategy,
   ): Order {
-    // Express orders should use express strategy
     const processingStrategy = strategy instanceof ExpressProcessingStrategy 
       ? strategy 
       : new ExpressProcessingStrategy();
 
     const order = new Order(id, customerId, components, processingStrategy);
     
-    // Mark as priority
     order.setPriority(true);
     
     return order;
