@@ -1,3 +1,5 @@
+import { OrderComponent } from '../components/OrderComponent.js';
+import { OrderProcessingStrategy } from '../strategies/OrderProcessingStrategy.js';
 import { OrderState } from '../states/OrderState.js';
 // eslint-disable-next-line import/no-cycle
 import { NewOrderState } from '../states/NewOrderState.js';
