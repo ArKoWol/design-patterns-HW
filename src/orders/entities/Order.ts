@@ -1,7 +1,5 @@
 import { OrderState } from '../states/OrderState.js';
 import { NewOrderState } from '../states/NewOrderState.js';
-import { OrderComponent } from '../components/OrderComponent.js';
-import { OrderProcessingStrategy } from '../strategies/OrderProcessingStrategy.js';
 
 export class Order {
   private state: OrderState;
