@@ -1,15 +1,7 @@
 import { OrderState } from '../states/OrderState.js';
 // eslint-disable-next-line import/no-cycle
 import { NewOrderState } from '../states/NewOrderState.js';
-import { OrderComponent } from '../components/OrderComponent.js';
-import { OrderProcessingStrategy } from '../strategies/OrderProcessingStrategy.js';
 
-/**
- * Order entity that uses:
- * - Composite pattern for order structure (OrderComponent)
- * - Strategy pattern for processing logic (OrderProcessingStrategy)
- * - State pattern for order lifecycle (OrderState)
- */
 export class Order {
   private state: OrderState;
 

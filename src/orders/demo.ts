@@ -207,6 +207,4 @@ export function runAllDemos(): void {
   demoInvalidOperations();
 }
 
-if (require.main === module) {
-  runAllDemos();
-}
+runAllDemos();

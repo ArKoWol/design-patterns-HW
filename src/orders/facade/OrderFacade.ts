@@ -3,9 +3,6 @@ import { PaymentService } from '../services/PaymentService.js';
 import { InventoryService } from '../services/InventoryService.js';
 import { ShippingService } from '../services/ShippingService.js';
 import { NotificationService } from '../services/NotificationService.js';
-import { OrderItem as OrderItemComponent } from '../components/OrderItem.js';
-import { StandardOrderFactory } from '../factories/StandardOrderFactory.js';
-import { StandardProcessingStrategy } from '../strategies/StandardProcessingStrategy.js';
 
 export class OrderFacade {
   private orders: Map<string, Order>;
