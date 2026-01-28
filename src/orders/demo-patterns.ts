@@ -243,14 +243,6 @@ export function runAllPatternDemos(): void {
   demoFactoryMethodPattern();
   demoAllPatternsCombined();
   demoRealWorldScenario();
-
-  console.log('\n\n');
-  console.log('█'.repeat(62));
-  console.log('█                                                            █');
-  console.log('█              ALL DEMONSTRATIONS COMPLETED                  █');
-  console.log('█                                                            █');
-  console.log('█'.repeat(62));
-  console.log('\n');
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
