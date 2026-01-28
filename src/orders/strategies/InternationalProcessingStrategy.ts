@@ -1,10 +1,6 @@
 import { OrderProcessingStrategy } from './OrderProcessingStrategy.js';
 import { OrderComponent } from '../components/OrderComponent.js';
 
-/**
- * Strategy Pattern - Concrete Strategy
- * International processing with customs handling
- */
 export class InternationalProcessingStrategy implements OrderProcessingStrategy {
   private readonly destinationCountry: string;
 
@@ -19,22 +15,20 @@ export class InternationalProcessingStrategy implements OrderProcessingStrategy 
   public calculateShippingCost(components: OrderComponent[]): number {
     const totalPrice = components.reduce((sum, component) => sum + component.getTotalPrice(), 0);
     
-    // International shipping is 25% of order value, minimum $30
     const shippingCost = totalPrice * 0.25;
     return Math.max(shippingCost, 30);
   }
 
   public getEstimatedDeliveryDays(): number {
-    return 14; // 10-14 business days
+    return 14;
   }
 
   public getProcessingFee(): number {
-    return 19.99; // Customs documentation and handling fee
+    return 19.99;
   }
 
   public canProcess(components: OrderComponent[]): boolean {
     const totalPrice = components.reduce((sum, component) => sum + component.getTotalPrice(), 0);
-    // International shipping has restrictions
     return components.length > 0 && totalPrice >= 50 && totalPrice < 10000;
   }
 

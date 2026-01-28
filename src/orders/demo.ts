@@ -139,7 +139,6 @@ export function demoMultipleOrders(): void {
   }
 
   if (order3) {
-    // Order remains in NEW state for demonstration
   }
 
   console.log(`\nAll Orders for Customer ${customerId}:`);
@@ -207,4 +206,6 @@ export function runAllDemos(): void {
   demoInvalidOperations();
 }
 
-runAllDemos();
+if (import.meta.url === `file://${process.argv[1]}`) {
+  runAllDemos();
+}

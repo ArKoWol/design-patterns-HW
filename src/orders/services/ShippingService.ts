@@ -13,7 +13,6 @@ export class ShippingService {
   }
 
   public calculateShippingCost(order: Order): number {
-    // Use the order's processing strategy for shipping cost calculation
     return order.getShippingCost();
   }
 

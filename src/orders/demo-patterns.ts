@@ -1,8 +1,3 @@
-/**
- * Comprehensive demonstration of Factory Method, Composite, and Strategy patterns
- * in an order processing system
- */
-
 import { OrderItem } from './components/OrderItem.js';
 import { OrderBundle } from './components/OrderBundle.js';
 import { StandardOrderFactory } from './factories/StandardOrderFactory.js';
@@ -12,10 +7,6 @@ import { StandardProcessingStrategy } from './strategies/StandardProcessingStrat
 import { ExpressProcessingStrategy } from './strategies/ExpressProcessingStrategy.js';
 import { InternationalProcessingStrategy } from './strategies/InternationalProcessingStrategy.js';
 
-/**
- * Demo 1: Composite Pattern
- * Demonstrates creating simple items and complex bundles
- */
 export function demoCompositePattern(): void {
   console.log('\n╔════════════════════════════════════════════════════════════╗');
   console.log('║            COMPOSITE PATTERN DEMONSTRATION                 ║');
@@ -44,7 +35,7 @@ export function demoCompositePattern(): void {
 
   const monitor = new OrderItem('PROD004', '4K Monitor', 499.99, 2);
   const hdmiCable = new OrderItem('PROD005', 'HDMI Cable', 19.99, 2);
-  
+
   const displayBundle = new OrderBundle('Display Bundle', 0.05);
   displayBundle.add(monitor);
   displayBundle.add(hdmiCable);
@@ -58,10 +49,6 @@ export function demoCompositePattern(): void {
   console.log('\n═══════════════════════════════════════════════════════════\n');
 }
 
-/**
- * Demo 2: Strategy Pattern
- * Demonstrates different processing strategies
- */
 export function demoStrategyPattern(): void {
   console.log('\n╔════════════════════════════════════════════════════════════╗');
   console.log('║            STRATEGY PATTERN DEMONSTRATION                  ║');
@@ -98,10 +85,6 @@ export function demoStrategyPattern(): void {
   console.log('═══════════════════════════════════════════════════════════\n');
 }
 
-/**
- * Demo 3: Factory Method Pattern
- * Demonstrates different order factories
- */
 export function demoFactoryMethodPattern(): void {
   console.log('\n╔════════════════════════════════════════════════════════════╗');
   console.log('║          FACTORY METHOD PATTERN DEMONSTRATION              ║');
@@ -155,10 +138,6 @@ export function demoFactoryMethodPattern(): void {
   console.log('═══════════════════════════════════════════════════════════\n');
 }
 
-/**
- * Demo 4: All Patterns Combined
- * Demonstrates all three patterns working together
- */
 export function demoAllPatternsCombined(): void {
   console.log('\n╔════════════════════════════════════════════════════════════╗');
   console.log('║          ALL PATTERNS COMBINED DEMONSTRATION               ║');
@@ -166,15 +145,14 @@ export function demoAllPatternsCombined(): void {
 
   console.log('Creating a complex order using all three patterns:\n');
 
-  // COMPOSITE: Build complex order structure
   console.log('Step 1: Building order structure (COMPOSITE PATTERN)\n');
-  
+
   const laptop = new OrderItem('PROD001', 'Gaming Laptop', 1499.99, 1);
   const ram = new OrderItem('PROD002', 'RAM 32GB', 149.99, 2);
-  
+
   const upgradeBundle = new OrderBundle('Performance Upgrade Kit', 0.10);
   upgradeBundle.add(ram);
-  
+
   const accessories = new OrderItem('PROD003', 'Laptop Bag', 49.99, 1);
 
   const components = [laptop, upgradeBundle, accessories];
@@ -184,16 +162,14 @@ export function demoAllPatternsCombined(): void {
     console.log(component.getDescription());
   });
 
-  // STRATEGY: Choose processing strategy
   console.log('\n\nStep 2: Selecting processing strategy (STRATEGY PATTERN)\n');
-  
+
   const strategy = new ExpressProcessingStrategy();
   console.log(`Selected Strategy: ${strategy.getStrategyName()}`);
   console.log(`Description: ${strategy.getDescription()}`);
 
-  // FACTORY METHOD: Create order
   console.log('\n\nStep 3: Creating order using factory (FACTORY METHOD PATTERN)\n');
-  
+
   const factory = new ExpressOrderFactory();
   const order = factory.createOrder(
     'ORD-COMBINED-001',
@@ -215,9 +191,6 @@ export function demoAllPatternsCombined(): void {
   console.log('═══════════════════════════════════════════════════════════\n');
 }
 
-/**
- * Demo 5: Real-world scenario
- */
 export function demoRealWorldScenario(): void {
   console.log('\n╔════════════════════════════════════════════════════════════╗');
   console.log('║              REAL-WORLD SCENARIO DEMONSTRATION             ║');
@@ -225,7 +198,6 @@ export function demoRealWorldScenario(): void {
 
   console.log('Scenario: International customer orders multiple bundles\n');
 
-  // Create product bundles (Composite)
   const phone = new OrderItem('PROD101', 'Smartphone', 899.99, 1);
   const charger = new OrderItem('PROD102', 'Fast Charger', 29.99, 1);
   const case1 = new OrderItem('PROD103', 'Protective Case', 19.99, 1);
@@ -242,10 +214,8 @@ export function demoRealWorldScenario(): void {
   audioBundle.add(headphones);
   audioBundle.add(headphoneCase);
 
-  // Choose strategy for international shipping
   const strategy = new InternationalProcessingStrategy('Japan');
 
-  // Use factory to create order
   const factory = new InternationalOrderFactory('Japan');
   const order = factory.createOrder(
     'ORD-INTL-2025-001',
@@ -259,9 +229,6 @@ export function demoRealWorldScenario(): void {
   console.log('\n\n═══════════════════════════════════════════════════════════\n');
 }
 
-/**
- * Run all demonstrations
- */
 export function runAllPatternDemos(): void {
   console.log('\n\n');
   console.log('█'.repeat(62));
@@ -286,8 +253,6 @@ export function runAllPatternDemos(): void {
   console.log('\n');
 }
 
-// Run demos if executed directly
 if (import.meta.url === `file://${process.argv[1]}`) {
   runAllPatternDemos();
 }
-

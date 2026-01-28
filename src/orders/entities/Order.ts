@@ -1,5 +1,4 @@
 import { OrderState } from '../states/OrderState.js';
-// eslint-disable-next-line import/no-cycle
 import { NewOrderState } from '../states/NewOrderState.js';
 
 export class Order {
@@ -37,7 +36,6 @@ export class Order {
     this.international = false;
   }
 
-  // State pattern methods
   public getState(): OrderState {
     return this.state;
   }
@@ -50,7 +48,6 @@ export class Order {
     return this.state.getStatus();
   }
 
-  // Basic getters
   public getId(): string {
     return this.id;
   }
@@ -63,7 +60,6 @@ export class Order {
     return this.createdAt;
   }
 
-  // Composite pattern methods
   public getComponents(): OrderComponent[] {
     return [...this.components];
   }
@@ -85,7 +81,6 @@ export class Order {
     );
   }
 
-  // Strategy pattern methods
   public getProcessingStrategy(): OrderProcessingStrategy {
     return this.processingStrategy;
   }
@@ -108,7 +103,6 @@ export class Order {
     return deliveryDate;
   }
 
-  // Tracking
   public setTrackingNumber(trackingNumber: string): void {
     this.trackingNumber = trackingNumber;
   }
@@ -117,7 +111,6 @@ export class Order {
     return this.trackingNumber;
   }
 
-  // Priority and international flags
   public setPriority(priority: boolean): void {
     this.priority = priority;
   }
@@ -134,7 +127,6 @@ export class Order {
     return this.international;
   }
 
-  // State transition methods
   public process(): void {
     this.state.process(this);
   }
@@ -151,7 +143,6 @@ export class Order {
     this.state.cancel(this);
   }
 
-  // Display methods
   public toString(): string {
     const priority = this.priority ? ' [PRIORITY]' : '';
     const international = this.international ? ' [INTERNATIONAL]' : '';
@@ -184,7 +175,6 @@ export class Order {
   }
 }
 
-// Keep the old interface for backward compatibility
 export interface OrderItem {
   productId: string;
   productName: string;
