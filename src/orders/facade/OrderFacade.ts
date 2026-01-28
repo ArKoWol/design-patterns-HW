@@ -68,7 +68,17 @@ export class OrderFacade {
     }
 
     const orderId = this.generateOrderId();
-    const order = new Order(orderId, customerId, items, totalAmount);
+    
+    // Convert OrderItem[] to OrderComponent[]
+    const components = items.map(item => 
+      new OrderItemComponent(item.productId, item.productName, item.price, item.quantity)
+    );
+    
+    // Use factory to create order with standard processing strategy
+    const factory = new StandardOrderFactory();
+    const strategy = new StandardProcessingStrategy();
+    const order = factory.createOrder(orderId, customerId, components, strategy);
+    
     this.orders.set(orderId, order);
 
     this.notificationService.sendOrderConfirmation(order);
@@ -158,7 +168,19 @@ export class OrderFacade {
       order.cancel();
 
       if (previousStatus === 'NEW' || previousStatus === 'PROCESSING') {
-        this.inventoryService.releaseItems(order.getItems());
+        // Convert components back to OrderItem[] for inventory service
+        const items: OrderItem[] = [];
+        order.getComponents().forEach(component => {
+          if (!component.isComposite()) {
+            items.push({
+              productId: (component as OrderItemComponent).getProductId(),
+              productName: component.getName(),
+              quantity: component.getQuantity(),
+              price: component.getPrice(),
+            });
+          }
+        });
+        this.inventoryService.releaseItems(items);
       }
 
       this.paymentService.refundPayment(order.getCustomerId(), order.getTotalAmount());

@@ -1,4 +1,6 @@
-import { Order, OrderItem } from '../../../src/orders/entities/Order';
+import { Order } from '../../../src/orders/entities/Order';
+import { OrderItem } from '../../../src/orders/components/OrderItem';
+import { StandardProcessingStrategy } from '../../../src/orders/strategies/StandardProcessingStrategy';
 import { NewOrderState } from '../../../src/orders/states/NewOrderState';
 import { ProcessingOrderState } from '../../../src/orders/states/ProcessingOrderState';
 import { ShippedOrderState } from '../../../src/orders/states/ShippedOrderState';
@@ -6,14 +8,14 @@ import { DeliveredOrderState } from '../../../src/orders/states/DeliveredOrderSt
 import { CancelledOrderState } from '../../../src/orders/states/CancelledOrderState';
 
 describe('Order States', () => {
-  const sampleItems: OrderItem[] = [
-    { productId: 'PROD001', productName: 'Laptop', quantity: 1, price: 999.99 }
-  ];
-
   let order: Order;
 
   beforeEach(() => {
-    order = new Order('ORD-001', 'CUST-001', sampleItems, 999.99);
+    const components = [
+      new OrderItem('PROD001', 'Laptop', 999.99, 1)
+    ];
+    const strategy = new StandardProcessingStrategy();
+    order = new Order('ORD-001', 'CUST-001', components, strategy);
   });
 
   describe('NewOrderState', () => {

@@ -13,10 +13,8 @@ export class ShippingService {
   }
 
   public calculateShippingCost(order: Order): number {
-    const itemCount = order.getItems().reduce((sum, item) => sum + item.quantity, 0);
-    const baseCost = 5.99;
-    const costPerItem = 1.50;
-    return baseCost + (itemCount * costPerItem);
+    // Use the order's processing strategy for shipping cost calculation
+    return order.getShippingCost();
   }
 
   public scheduleShipment(order: Order): string {
